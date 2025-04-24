@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shayari Status Maker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Mukta', sans-serif;
+            background: linear-gradient(to right, #fceabb, #f8b500);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 30px 20px;
+            background: #fff;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            background: linear-gradient(#f12711, #f5af19);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .shayari-input {
+            width: 90%;
+            max-width: 700px;
+            height: 120px;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 10px;
+            border: 2px solid #f8b500;
+            outline: none;
+            resize: none;
+        }
+
+        .btn {
+            background-color: #f8b500;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            margin-top: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #e49e00;
+        }
+
+        .output-section {
+            margin-top: 40px;
+        }
+
+        .output-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .download-link {
+            display: inline-block;
+            margin-top: 20px;
+            background: #28a745;
+            color: white;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .download-link:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .shayari-input {
+                font-size: 16px;
+            }
+
+            .btn, .download-link {
+                font-size: 16px;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>शायरी स्टेटस मेकर</h1>
+        <form method="POST" action="/generate">
+            <textarea name="shayari" class="shayari-input" placeholder="अपनी शायरी यहाँ लिखें... (Optional)"></textarea><br>
+            <button type="submit" class="btn">Status बनाएं</button>
+        </form>
+
+        {% if output_image %}
+        <div class="output-section">
+            <img src="{{ output_image }}" id="statusImage" class="output-image" alt="Generated Image">
+            <br>
+            <a id="downloadBtn" class="download-link" download="shayari_status.jpg">Download करें</a>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if output_image %}
+    <script>
+        // Auto-set the href for download
+        const img = document.getElementById('statusImage');
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.setAttribute('href', img.src);
+    </script>
+    {% endif %}
+</body>
+</html>
